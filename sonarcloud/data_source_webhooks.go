@@ -93,7 +93,6 @@ func (d dataSourceWebhooks) Read(ctx context.Context, req tfsdk.ReadDataSourceRe
 		hooks[i] = DataWebhook{
 			Key:    types.String{Value: webhook.Key},
 			Name:   types.String{Value: webhook.Name},
-			Secret: types.String{Value: webhook.Secret},
 			Url:    types.String{Value: webhook.Url},
 		}
 	}

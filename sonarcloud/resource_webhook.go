@@ -88,7 +88,6 @@ func (r resourceWebhook) Create(ctx context.Context, req tfsdk.CreateResourceReq
 		Name:         plan.Name.Value,
 		Organization: r.p.organization,
 		Project:      plan.Project.Value,
-		Secret:       plan.Secret.Value,
 		Url:          plan.Url.Value,
 	}
 
@@ -107,7 +106,6 @@ func (r resourceWebhook) Create(ctx context.Context, req tfsdk.CreateResourceReq
 		Key:     types.String{Value: webhook.Key},
 		Project: plan.Project,
 		Name:    types.String{Value: webhook.Name},
-		Secret:  types.String{Value: webhook.Secret},
 		Url:     types.String{Value: webhook.Url},
 	}
 	diags = resp.State.Set(ctx, result)
@@ -168,7 +166,6 @@ func (r resourceWebhook) Update(ctx context.Context, req tfsdk.UpdateResourceReq
 	// Fill in api action struct
 	request := webhooks.UpdateRequest{
 		Name:   plan.Name.Value,
-		Secret: plan.Secret.Value,
 		Url:    plan.Url.Value,
 		// Note: this is an inconsistency in the API naming...
 		Webhook: state.Key.Value,
@@ -270,7 +267,6 @@ func findWebhook(response *webhooks.ListResponse, key, project_key string) (Webh
 				Key:     types.String{Value: webhook.Key},
 				Project: types.String{Value: project_key, Null: projectKeyIsNull},
 				Name:    types.String{Value: webhook.Name},
-				Secret:  types.String{Value: webhook.Secret},
 				Url:     types.String{Value: webhook.Url},
 			}
 			ok = true
